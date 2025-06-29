@@ -1,4 +1,4 @@
-✅ Objective
+*Objective
 To develop a responsive and interactive To-Do Web Application that enables users to:
 
 Add tasks with a scheduled date/time.
@@ -9,7 +9,7 @@ Edit and delete tasks easily.
 
 View tasks in a clean, modern layout.
 
-🛠️ Key Activities
+*Key Activities
 UI/UX Design:
 
 Design a clean and user-friendly interface using HTML and CSS.
@@ -38,13 +38,13 @@ Alert the user when task inputs are incomplete.
 
 Format the task date and time for readability.
 
-💻 Technologies Used
+*Technologies Used
 Technology	Description
 HTML5	Defines the structure of the To-Do app (input fields, buttons, list items).
 CSS3	Styles the application with modern UI design and responsive layout.
 JavaScript (ES6+)	Implements core logic for task creation, modification, completion, and deletion.
 
-📄 Code Description
+Code Description
 HTML Section:
 
 <input type="text"> for entering the task description.
