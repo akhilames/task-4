@@ -1,3 +1,10 @@
+Name:Akhila Mesupamu
+Company:SkillCraft Technonloy
+Id:SCT/JUN25/5476
+Domain:Web Development 
+Duration:June to July
+Overview of the project 
+project:Develop a basic to do app that enables a user to add maintain task
 *Objective
 To develop a responsive and interactive To-Do Web Application that enables users to:
 
