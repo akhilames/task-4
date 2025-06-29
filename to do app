@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do Web App</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1c1c2d;
+      color: white;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #2c2f4a;
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    h2 {
+      color: #00eaff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .task-form input, .task-form button {
+      padding: 10px;
+      margin: 8px 4px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .task-form input[type="text"] {
+      width: 50%;
+    }
+
+    .task-form input[type="datetime-local"] {
+      width: 38%;
+    }
+
+    .task-form button {
+      background: #00eaff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #3b3e5e;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task-details {
+      flex-grow: 1;
+    }
+
+    .task-date {
+      font-size: 0.85em;
+      color: #aaa;
+    }
+
+    .task-actions button {
+      margin-left: 5px;
+      background-color: #444;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: lightgreen;
+    }
+
+    .task-actions button:hover {
+      background-color: #00eaff;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📝 To-Do Web App</h2>
+    <div class="task-form">
+      <input type="text" id="taskInput" placeholder="Enter task...">
+      <input type="datetime-local" id="taskTime">
+      <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = [];
+
+    function addTask() {
+      const taskText = document.getElementById('taskInput').value.trim();
+      const taskTime = document.getElementById('taskTime').value;
+
+      if (!taskText || !taskTime) {
+        alert("Please enter both task and date/time!");
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        text: taskText,
+        time: taskTime,
+        completed: false
+      };
+
+      tasks.push(task);
+      renderTasks();
+      clearInputs();
+    }
+
+    function renderTasks() {
+      const list = document.getElementById('taskList');
+      list.innerHTML = '';
+
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        const timeDisplay = new Date(task.time).toLocaleString();
+
+        li.innerHTML = `
+          <div class="task-details">
+            <div class="${task.completed ? 'completed' : ''}">${task.text}</div>
+            <div class="task-date">⏰ ${timeDisplay}</div>
+          </div>
+          <div class="task-actions">
+            <button onclick="toggleComplete(${task.id})">✔</button>
+            <button onclick="editTask(${task.id})">✏</button>
+            <button onclick="deleteTask(${task.id})">🗑</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function toggleComplete(id) {
+      tasks = tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
+      renderTasks();
+    }
+
+    function editTask(id) {
+      const task = tasks.find(t => t.id === id);
+      const newText = prompt("Edit task text:", task.text);
+      if (newText !== null && newText.trim() !== '') {
+        task.text = newText.trim();
+        renderTasks();
+      }
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(task => task.id !== id);
+      renderTasks();
+    }
+
+    function clearInputs() {
+      document.getElementById('taskInput').value = '';
+      document.getElementById('taskTime').value = '';
+    }
+  </script>
+</body>
+</html>
